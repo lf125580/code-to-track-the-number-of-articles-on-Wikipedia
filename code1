@@ -1,0 +1,16 @@
+import requests
+from bs4 import BeautifulSoup
+
+# Make a request to the Wikipedia website
+response = requests.get('https://en.wikipedia.org/wiki/Main_Page')
+
+# Use BeautifulSoup to parse the HTML of the website
+soup = BeautifulSoup(response.text, 'html.parser')
+
+# Find the element containing the number of articles
+articles_element = soup.find('div', {'id': 'mp-topbanner'}).find('div', {'class': 'mp-topbanner-count'})
+
+# Extract the number of articles from the element
+articles_count = int(articles_element.text.replace(',', ''))
+
+print(f'Number of articles: {articles_count}')
